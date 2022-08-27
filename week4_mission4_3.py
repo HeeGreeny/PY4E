@@ -1,0 +1,55 @@
+def check_id() :
+# 주민등록번호 입력받기
+    while True:
+        q1 = input("주민등록번호 앞자리를 넣어주세요: ")
+        if (len(q1) != 6):
+            print("다시 확인하시고 넣어주세요(앞 6숫자)\n")
+            continue
+        q2 = input("주민등록번호 뒷자리를 넣어주세요: ")
+        if (len(q2) != 7):
+            print("다시 확인하시고 넣어주세요(뒷 7숫자)\n")
+            continue
+        else:
+            q = q1 + '-' + q2
+            print('주민등록번호', q)
+            break
+# 년,월 + 성별구분 슬라이스
+    b_year = list(q1[:2])
+    b_month = list(q1[2:4])
+    gender = list(q2[0])
+# 성별 조건문
+    for n in gender :
+        if n == '1' or n == '3':
+             s = '남자'
+        elif n == '2' or n =='4':
+             s = '여자'
+        else:
+             print('성별을 알 수 없습니다.')
+# 00년 이후 출생자 체크
+    if (b_year[0] == '0') or (b_year[0] == '1') or (b_year[0] == '2'):
+        while True:
+            y = input('2000년 이후 출생자 입니까? 맞으면 o 아니면 x: ')
+            if y == 'o' and (gender == '1' or gender == '2'):
+                print('잘못된 번호입니다.')
+                print('입력된 주민등록번호를 재확인 해주세요.')
+                print('2000년 이후 출생자의 뒷자리 첫숫자는 3 혹은 4 입니다.')
+                break
+            elif y == 'o' and (gender == '3' or gender == '4') :
+                print(f'{b_year}년{b_month}월 {s}')
+                break
+            elif y == 'x' :
+                print(f'{b_year}년{b_month}월 {s}')
+                print('입력된 출생년도가 2000년 이후 입니다.')
+                break
+            else:
+                print('잘못 입력하셨습니다.\n')
+                continue
+    else :
+        if gender == '3' or gender == '4':
+            print('잘못된 번호입니다.')
+            print('입력된 주민등록번호를 재확인 해주세요.')
+            print('2000년 이전 출생자의 뒷자리 첫숫자는 1 혹은 2 입니다.')
+        else :
+           print(f'{b_year}년{b_month}월 {s}')
+# 결과 출력
+check_id()
